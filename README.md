@@ -1,6 +1,6 @@
 # springbootfun
 
-A minimal Spring Boot 4 RESTful API example built with Maven.
+A minimal Spring Boot 4 RESTful API example built with Maven. Each generated greeting message is stored in an embedded H2 database.
 
 ## Requirements
 
@@ -41,6 +41,14 @@ Return a greeting using a path variable:
 ```bash
 curl http://localhost:8080/api/greetings/Cursor
 ```
+
+Every request stores the returned greeting message in the `greeting_messages` table. The H2 console is enabled at:
+
+```text
+http://localhost:8080/h2-console
+```
+
+Use `jdbc:h2:mem:greetingsdb` as the JDBC URL, `sa` as the username, and leave the password empty.
 
 ## Test
 
