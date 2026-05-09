@@ -2,10 +2,9 @@ package com.example.springbootfun.bdd;
 
 import java.util.List;
 
+import com.jayway.jsonpath.JsonPath;
 import com.example.springbootfun.greeting.GreetingMessage;
 import com.example.springbootfun.greeting.GreetingMessageRepository;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,9 +19,6 @@ public class GreetingStepDefinitions {
 
 	@Autowired
 	private MockMvc mockMvc;
-
-	@Autowired
-	private ObjectMapper objectMapper;
 
 	@Autowired
 	private GreetingMessageRepository repository;
@@ -57,9 +53,11 @@ public class GreetingStepDefinitions {
 	public void theGreetingResponseMessageShouldBe(String expectedMessage) throws Exception {
 		assertThat(this.response.getResponse().getStatus()).isEqualTo(200);
 
-		JsonNode responseBody = this.objectMapper.readTree(this.response.getResponse().getContentAsString());
-		assertThat(responseBody.path("id").asLong()).isPositive();
-		assertThat(responseBody.path("message").asText()).isEqualTo(expectedMessage);
+		String responseBody = this.response.getResponse().getContentAsString();
+		Number id = JsonPath.read(responseBody, "$.id");
+		String message = JsonPath.read(responseBody, "$.message");
+		assertThat(id.longValue()).isPositive();
+		assertThat(message).isEqualTo(expectedMessage);
 	}
 
 	@Then("the greeting should be stored with message {string}")
