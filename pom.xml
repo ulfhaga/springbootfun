@@ -29,6 +29,7 @@
 	<properties>
 		<cucumber.version>7.34.3</cucumber.version>
 		<java.version>21</java.version>
+		<rest-assured.version>6.0.0</rest-assured.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -77,6 +78,13 @@
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-suite</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

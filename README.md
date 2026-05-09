@@ -56,4 +56,4 @@ Use `jdbc:h2:mem:greetingsdb` as the JDBC URL, `sa` as the username, and leave t
 ./mvnw test
 ```
 
-The test suite includes Cucumber behavior-driven scenarios in `src/test/resources/features`.
+The test suite includes Cucumber behavior-driven scenarios in `src/test/resources/features`. Those scenarios call the running Spring Boot API with RestAssured and verify the stored H2 records.
