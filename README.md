@@ -42,7 +42,7 @@ Return a greeting using a path variable:
 curl http://localhost:8080/api/greetings/Cursor
 ```
 
-Every request stores the returned greeting message in the `greeting_messages` table. The H2 console is enabled at:
+Every request stores the returned greeting message in the `greeting_messages` table with a `created_at` timestamp. The H2 console is enabled at:
 
 ```text
 http://localhost:8080/h2-console

@@ -63,8 +63,10 @@ class GreetingControllerTests {
 	private void assertStoredMessages(String expectedMessage) {
 		List<GreetingMessage> messages = this.repository.findAll();
 		assertThat(messages).singleElement()
-				.extracting(GreetingMessage::getMessage)
-				.isEqualTo(expectedMessage);
+				.satisfies(message -> {
+					assertThat(message.getMessage()).isEqualTo(expectedMessage);
+					assertThat(message.getCreatedAt()).isNotNull();
+				});
 	}
 
 }

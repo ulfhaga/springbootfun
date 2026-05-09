@@ -1,5 +1,7 @@
 package com.example.springbootfun.greeting;
 
+import java.time.Instant;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +17,7 @@ public class GreetingService {
 	@Transactional
 	public Greeting createGreeting(String name) {
 		String message = "Hello, %s!".formatted(name);
-		GreetingMessage savedMessage = this.repository.save(new GreetingMessage(message));
+		GreetingMessage savedMessage = this.repository.save(new GreetingMessage(message, Instant.now()));
 		return new Greeting(savedMessage.getId(), savedMessage.getMessage());
 	}
 

@@ -1,5 +1,7 @@
 package com.example.springbootfun.greeting;
 
+import java.time.Instant;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,11 +20,15 @@ public class GreetingMessage {
 	@Column(nullable = false)
 	private String message;
 
+	@Column(name = "created_at", nullable = false)
+	private Instant createdAt;
+
 	protected GreetingMessage() {
 	}
 
-	public GreetingMessage(String message) {
+	public GreetingMessage(String message, Instant createdAt) {
 		this.message = message;
+		this.createdAt = createdAt;
 	}
 
 	public Long getId() {
@@ -31,6 +37,10 @@ public class GreetingMessage {
 
 	public String getMessage() {
 		return this.message;
+	}
+
+	public Instant getCreatedAt() {
+		return this.createdAt;
 	}
 
 }
