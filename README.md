@@ -55,3 +55,5 @@ Use `jdbc:h2:mem:greetingsdb` as the JDBC URL, `sa` as the username, and leave t
 ```bash
 ./mvnw test
 ```
+
+The test suite includes Cucumber behavior-driven scenarios in `src/test/resources/features`.
