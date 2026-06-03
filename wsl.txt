@@ -1,0 +1,124 @@
+WSL Ubuntu 26.04 setup with Nautilus
+====================================
+
+1. Update Windows and WSL
+-------------------------
+
+Open PowerShell as Administrator:
+
+    wsl --install
+    wsl --update
+    wsl --set-default-version 2
+
+Restart Windows if prompted.
+
+2. Check whether Ubuntu 26.04 is available directly
+---------------------------------------------------
+
+In PowerShell:
+
+    wsl --list --online
+
+If Ubuntu 26.04 is listed, install it with:
+
+    wsl --install -d Ubuntu-26.04
+
+3. Install Ubuntu 26.04 from the official WSL image if needed
+------------------------------------------------------------
+
+If Ubuntu 26.04 is not listed by `wsl --list --online`, download and
+install the official WSL image manually:
+
+    curl.exe -LO https://releases.ubuntu.com/26.04/ubuntu-26.04-wsl-amd64.wsl
+    wsl --install --from-file .\ubuntu-26.04-wsl-amd64.wsl --name Ubuntu-26.04
+
+Start the new distro:
+
+    wsl -d Ubuntu-26.04
+
+4. Initial Ubuntu setup
+-----------------------
+
+Inside Ubuntu:
+
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt install -y build-essential git curl wget unzip ca-certificates
+
+If the manual install starts as root, create a normal user:
+
+    adduser yourname
+    usermod -aG sudo yourname
+
+Set that user as the default user:
+
+    printf "[user]\ndefault=yourname\n" > /etc/wsl.conf
+
+Then exit Ubuntu and restart WSL from PowerShell:
+
+    wsl --shutdown
+    wsl -d Ubuntu-26.04
+
+5. Install Nautilus with useful WSL GUI dependencies
+---------------------------------------------------
+
+Inside Ubuntu:
+
+    sudo apt update
+    sudo apt install -y \
+      nautilus \
+      dbus-x11 \
+      gvfs \
+      gvfs-backends \
+      gvfs-fuse \
+      xdg-user-dirs \
+      xdg-utils \
+      gsettings-desktop-schemas \
+      adwaita-icon-theme
+
+Optional but useful packages:
+
+    sudo apt install -y gnome-keyring file-roller fonts-ubuntu
+
+Launch Nautilus:
+
+    nautilus ~ >/dev/null 2>&1 &
+
+If you get DBus or session errors, try:
+
+    dbus-run-session nautilus ~
+
+6. Recommended WSL GUI refresh
+------------------------------
+
+From PowerShell as Administrator:
+
+    wsl --update
+    wsl --shutdown
+
+Then reopen Ubuntu and launch Nautilus again.
+
+7. Optional resource limits
+---------------------------
+
+Create or edit this Windows file:
+
+    C:\Users\<you>\.wslconfig
+
+Example:
+
+    [wsl2]
+    memory=8GB
+    processors=4
+    swap=4GB
+
+Apply changes from PowerShell:
+
+    wsl --shutdown
+
+Recommendation
+--------------
+
+Use `wsl --install -d Ubuntu-26.04` if it is available in the WSL online
+distro list. Otherwise, install from the official `.wsl` image at
+`releases.ubuntu.com`.
