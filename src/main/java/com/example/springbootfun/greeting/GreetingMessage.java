@@ -7,20 +7,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "greeting_messages")
+@Table(name = "GREETING_MESSAGES")
 public class GreetingMessage {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "greeting_message_seq_gen")
+	@SequenceGenerator(name = "greeting_message_seq_gen", sequenceName = "GREETING_MESSAGE_SEQ", allocationSize = 1)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 255)
 	private String message;
 
-	@Column(name = "created_at", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false)
 	private Instant createdAt;
 
 	protected GreetingMessage() {
