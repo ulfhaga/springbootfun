@@ -16,7 +16,7 @@
 - Spring Boot 4.0.6, Maven single module (`com.example:springbootfun`). Use `spring-boot-starter-webmvc` / `spring-boot-starter-webmvc-test`; Boot 4 relocated MockMvc's annotation to `org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc` (the Boot 3 `org.springframework.boot.test.autoconfigure.web.servlet.*` import does not resolve).
 - All domain code is in `com.example.springbootfun.greeting`: `GreetingController` (`/api/greetings`, `?name=` and `/{name}`) → `GreetingService.createGreeting()` → `GreetingMessageRepository` → `GreetingMessage` (`greeting_messages` table). Responses are `Greeting(long id, String message)`, formatted `Hello, <name>!`.
 - There is no read-only endpoint: every GET persists a row with `message` + `createdAt` (`@Transactional` in `GreetingService`).
-- Persistence: embedded H2 in-memory (`jdbc:h2:mem:greetingsdb`, user `sa`, empty password), schema via `spring.jpa.hibernate.ddl-auto=update` — no migrations. H2 console at `/h2-console`.
+- Persistence: embedded H2 in-memory (`jdbc:h2:mem:greetingsdb`, user `sa`, empty password), schema via `spring.jpa.hibernate.ddl-auto=update` — no migrations. H2 console at `/h2-console`, which needs the separate `org.springframework.boot:spring-boot-h2console` module on the classpath in Boot 4 (`spring.h2.console.enabled=true` alone does nothing).
 - Config is only `src/main/resources/application.properties`; no profiles, env files, or external services.
 
 ## Tests
